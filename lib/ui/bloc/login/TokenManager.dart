@@ -2,21 +2,22 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TokeManager {
-  var _shared = GetIt.I.get<SharedPreferences>();
+  final _shared = GetIt.I<SharedPreferences>();
   static const key = "TOKEN";
-
-  TokeManager() {
-  }
 
   String? get token {
     return _shared.getString(key) ?? null;
   }
 
-  set token(String? token) {
+  bool hasToken() {
+    return _shared.containsKey(key);
+  }
+
+  setToken(String? token) async {
     if (token == null) {
-      _shared.remove(key);
+      await _shared.remove(key);
     } else {
-      _shared.setString(key, token);
+      await _shared.setString(key, token);
     }
   }
 }

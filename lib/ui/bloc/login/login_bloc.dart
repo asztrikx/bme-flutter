@@ -14,8 +14,8 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  var dio = GetIt.I.get<Dio>();
-  var tokenMngr = GetIt.I.get<TokeManager>();
+  var dio = GetIt.I<Dio>();
+  var tokenMngr = GetIt.I<TokeManager>();
 
   LoginBloc() : super(LoginForm()) {
     on<LoginSubmitEvent>((event, emit) async {
@@ -30,7 +30,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (event.rememberMe) {
           var loginReponse = LoginResponse.fromJson(result.data);
           var token = loginReponse.token!;
-          tokenMngr.token = token;
+          await tokenMngr.setToken(token);
         }
         emit(LoginSuccess());
         emit(LoginForm());
@@ -42,7 +42,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<LoginAutoLoginEvent>((event, emit) async {
-      if (tokenMngr.token != null) {
+      if (tokenMngr.hasToken()) {
         emit(LoginSuccess());
       }
     });
