@@ -8,7 +8,6 @@ import 'package:flutter_homework/ui/bloc/login/loginResponse.dart';
 import 'package:meta/meta.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
