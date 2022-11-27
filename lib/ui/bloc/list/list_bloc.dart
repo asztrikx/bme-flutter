@@ -25,8 +25,10 @@ class ListBloc extends Bloc<ListEvent, ListState> {
           list.add(UserItem.fromJson(result.data[i]));
         }
         emit(ListLoaded(list));
-      } on DioError {
-        emit(ListError("Hiba történt!"));
+      } on DioError catch(e) {
+        var text = e.response?.data["message"];
+        if (text == "") text = "Hiba történt!";
+        emit(ListError(text));
       }
     });
   }
