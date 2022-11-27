@@ -16,8 +16,8 @@ class TokenManager {
   String? _token = null;
   bool remember = false;
   
-  Future<String?> get token async {
-    _token ??= await _shared.getString(_key);
+  String? get token {
+    _token ??= _shared.getString(_key);
     return _token;
   }
 
