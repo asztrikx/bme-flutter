@@ -68,19 +68,19 @@ class _ListPageBlocState extends State<ListPageBloc> {
   Widget list(BuildContext context, ListLoaded state) {
     // for performance
     return ListView.separated(
-      separatorBuilder: (context, index) => Divider(),
+      separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (BuildContext context, int index) => Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CachedNetworkImage(
             imageUrl: state.users[index].avatarUrl,
-            placeholder: (context, url) => new CircularProgressIndicator(),
-            errorWidget: (context, url, error) => new Icon(Icons.error),
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
             height: 50,
           ),
           Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(state.users[index].name, style: TextStyle(fontSize: 30)),
+            padding: const EdgeInsets.only(left: 20),
+            child: Text(state.users[index].name, style: const TextStyle(fontSize: 30)),
           ),
         ],
       ),
