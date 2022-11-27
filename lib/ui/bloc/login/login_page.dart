@@ -136,11 +136,11 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
   void submit(LoginBloc loginBloc) {
     bool error = false;
     if (!isEmail(emailController.text)) {
-      emailErrorText = "Nem jó az emailcím formátuma.";
+      emailErrorText = "Wrong email format.";
       error = true;
     }
     if (passwordController.text.length < 6) {
-      passwordErrorText = "A hossz nem lehet kevesebb mint 6";
+      passwordErrorText = "Length must be >= 6";
       error = true;
     }
     if (error) return;

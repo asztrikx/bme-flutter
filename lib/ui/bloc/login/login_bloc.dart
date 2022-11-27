@@ -19,8 +19,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginForm()) {
     on<LoginSubmitEvent>((event, emit) async {
       if (state is LoginLoading) return;
-
       emit(LoginLoading());
+
       try {
         var result = await dio.post("/login", data: {
           "email": event.email,

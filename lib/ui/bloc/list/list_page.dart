@@ -29,12 +29,17 @@ class _ListPageBlocState extends State<ListPageBloc> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: IconButton(
-          icon: const Icon(Icons.key),
-          onPressed: () async {
-            Navigator.pushReplacementNamed(context, "/");
-            await tokenMngr.clearSaved();
-          },
+        title: Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.key),
+              onPressed: () async {
+                Navigator.pushReplacementNamed(context, "/");
+                await tokenMngr.clearSaved();
+              },
+            ),
+            const Text("Users",)
+          ],
         ),
       ),
       body: buildWithScaffold(context),
@@ -64,23 +69,31 @@ class _ListPageBlocState extends State<ListPageBloc> {
   }
 
   Widget list(BuildContext context, ListLoaded state) {
+    var media = MediaQuery.of(context);
+
     // for performance
     return ListView.separated(
       separatorBuilder: (context, index) => const Divider(),
-      itemBuilder: (BuildContext context, int index) => Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CachedNetworkImage(
-            imageUrl: state.users[index].avatarUrl,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            height: 50,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Text(state.users[index].name, style: const TextStyle(fontSize: 30)),
-          ),
-        ],
+      itemBuilder: (BuildContext context, int index) => Center(
+        child: Row(
+          //mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CachedNetworkImage(
+              imageUrl: state.users[index].avatarUrl,
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              height: 50,
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Text(
+                state.users[index].name,
+                style: const TextStyle(fontSize: 30),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
       itemCount: state.users.length,
     );
