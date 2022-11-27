@@ -64,8 +64,6 @@ class _ListPageBlocState extends State<ListPageBloc> {
   }
 
   Widget list(BuildContext context, ListLoaded state) {
-    var media = MediaQuery.of(context);
-
     // for performance
     return ListView.separated(
       separatorBuilder: (context, index) => const Divider(),
@@ -73,12 +71,7 @@ class _ListPageBlocState extends State<ListPageBloc> {
         child: Row(
           //mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CachedNetworkImage(
-              imageUrl: state.users[index].avatarUrl,
-              //placeholder: (context, url) => const CircularProgressIndicator(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              height: 50,
-            ),
+            Image(image: NetworkImage(state.users[index].avatarUrl),),
             const SizedBox(width: 20),
             Expanded(
               child: Text(
