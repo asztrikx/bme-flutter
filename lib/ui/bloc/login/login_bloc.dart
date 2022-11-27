@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_homework/ui/bloc/login/TokenManager.dart';
-import 'package:flutter_homework/ui/bloc/login/loginResponse.dart';
+import 'package:flutter_homework/ui/bloc/tokenManager/TokenManager.dart';
+import 'package:flutter_homework/network/loginResponse.dart';
 import 'package:meta/meta.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -26,11 +26,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           "email": event.email,
           "password": event.password,
         });
-        if (event.rememberMe) {
-          var loginReponse = LoginResponse.fromJson(result.data);
-          var token = loginReponse.token!;
-          await tokenMngr.setToken(token);
-        }
+        var loginReponse = LoginResponse.fromJson(result.data);
+        var token = loginReponse.token!;
+        await tokenMngr.setToken(token, event.rememberMe);
         emit(LoginSuccess());
         emit(LoginForm());
       } on DioError catch(e) {
@@ -41,7 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<LoginAutoLoginEvent>((event, emit) async {
-      if (tokenMngr.hasToken()) {
+      if (tokenMngr.hasSavedToken()) {
         emit(LoginSuccess());
       }
     });

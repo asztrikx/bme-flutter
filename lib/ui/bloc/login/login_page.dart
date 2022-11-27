@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_homework/ui/bloc/login/TokenManager.dart';
+import 'package:flutter_homework/ui/bloc/tokenManager/TokenManager.dart';
 import 'package:flutter_homework/ui/bloc/login/login_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:validators/validators.dart';
@@ -46,9 +46,9 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
-      listener: (_, state) {
+      listener: (context, state) {
         if (state is LoginSuccess) {
-          Navigator.pushNamed(context, "/list");
+          Navigator.pushReplacementNamed(context, "/list");
         } else if (state is LoginError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
@@ -58,13 +58,13 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
       buildWhen: (_, current) {
         return current is LoginForm || current is LoginLoading;
       },
-      builder: (ctx, state) {
-        return loginForm(ctx, state);
+      builder: (context, state) {
+        return loginForm(context, state);
       }
     );
   }
 
-  Widget loginForm(BuildContext ctx, LoginState state) {
+  Widget loginForm(BuildContext context, LoginState state) {
     final loginBloc = context.read<LoginBloc>();
     return Center(
         child: Column(

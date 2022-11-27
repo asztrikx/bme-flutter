@@ -4,21 +4,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TokeManager {
   final _shared = GetIt.I<SharedPreferences>();
   static const _key = "TOKEN";
-
+  String? _token = null;
+  bool remember = false;
+  
   String? get token {
-    return _shared.getString(_key);
+    _token ??= _shared.getString(_key);
+    return _token;
   }
 
-  bool hasToken() {
+  bool hasSavedToken() {
     return _shared.containsKey(_key);
   }
 
-  Future<void> clear() async {
+  Future<void> clearSaved() async {
     //await _shared.remove(_key);
     await _shared.clear();
   }
 
-  setToken(String token) async {
-    await _shared.setString(_key, token);
+  setToken(String token, bool save) async {
+    _token = token;
+    if (save) {
+      await _shared.setString(_key, token);
+    }
   }
 }
