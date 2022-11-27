@@ -42,9 +42,18 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
     loginBloc.add(LoginAutoLoginEvent());
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Login page"),
+        ),
+        body:buildWithScaffold(context),
+    );
+  }
+
+  Widget buildWithScaffold(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
@@ -105,13 +114,13 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
                 }
               },
             ),
-            ElevatedButton(onPressed: () => sumbit(loginBloc), child: const Text("Submit"))
+            ElevatedButton(onPressed: () => submit(loginBloc), child: const Text("Submit"))
           ],
         )
     );
   }
 
-  void sumbit(LoginBloc loginBloc) {
+  void submit(LoginBloc loginBloc) {
     bool error = false;
     if (!isEmail(emailController.text)) {
       emailErrorText = "Nem email.";

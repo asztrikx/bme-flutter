@@ -56,14 +56,9 @@ class MyApp extends StatelessWidget {
       //DO NOT MODIFY
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (_) => Scaffold( // required for textfield
-          appBar: AppBar(
-            title: Text("Login page"),
-          ),
-          body: BlocProvider(
-            create: (_) => LoginBloc(),
-            child: const LoginPageBloc(),
-          )
+        "/": (_) => BlocProvider(
+          create: (_) => LoginBloc(),
+          child: const LoginPageBloc(),
         ),
         "/list": (_) => BlocProvider(
           create: (_) => ListBloc(),
