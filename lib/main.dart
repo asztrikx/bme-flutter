@@ -38,6 +38,7 @@ Future configureFixDependencies() async {
 
 //Add custom dependencies if necessary
 Future configureCustomDependencies() async {
+  GetIt.I.registerSingleton(TokenManager());
 }
 
 class MyApp extends StatelessWidget {
