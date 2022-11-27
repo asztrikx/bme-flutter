@@ -81,7 +81,7 @@ class _ListPageBlocState extends State<ListPageBloc> {
           children: [
             CachedNetworkImage(
               imageUrl: state.users[index].avatarUrl,
-              placeholder: (context, url) => const CircularProgressIndicator(),
+              //placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               height: 50,
             ),
