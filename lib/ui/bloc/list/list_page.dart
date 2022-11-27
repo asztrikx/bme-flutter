@@ -34,6 +34,7 @@ class _ListPageBlocState extends State<ListPageBloc> {
             IconButton(
               icon: const Icon(Icons.key),
               onPressed: () async {
+                dio.options.headers["Authorization"] = "";
                 Navigator.pushReplacementNamed(context, "/");
                 await tokenMngr.clearSaved();
               },

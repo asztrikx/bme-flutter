@@ -29,6 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         var loginReponse = LoginResponse.fromJson(result.data);
         var token = loginReponse.token!;
         await tokenMngr.setToken(token, event.rememberMe);
+        setAuthHeader();
         emit(LoginSuccess());
         emit(LoginForm());
       } on DioError catch(e) {
@@ -40,8 +41,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     on<LoginAutoLoginEvent>((event, emit) async {
       if (tokenMngr.hasSavedToken()) {
+        setAuthHeader();
         emit(LoginSuccess());
       }
     });
+  }
+
+  setAuthHeader() {
+    dio.options.headers["Authorization"] = "Bearer ${tokenMngr.token ?? ""}";
   }
 }

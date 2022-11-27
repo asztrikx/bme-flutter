@@ -19,11 +19,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
       emit(ListLoading());
 
       try {
-        var result = await dio.get("/users", options: Options(
-          headers: {
-            "Authorization": "Bearer ${tokenMngr.token ?? ""}",
-          },
-        ));
+        var result = await dio.get("/users");
         var list = <UserItem>[];
         for (int i = 0; i < result.data.length; i++) {
           list.add(UserItem.fromJson(result.data[i]));
