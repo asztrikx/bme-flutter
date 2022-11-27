@@ -2,9 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_homework/network/data_source_interceptor.dart';
-import 'package:flutter_homework/ui/bloc/login/TokenManager.dart';
+import 'package:flutter_homework/ui/bloc/list/list_bloc.dart';
+import 'package:flutter_homework/ui/bloc/list/list_page.dart';
+import 'package:flutter_homework/ui/bloc/tokenManager/TokenManager.dart';
 import 'package:flutter_homework/ui/bloc/login/login_bloc.dart';
 import 'package:flutter_homework/ui/bloc/login/login_page.dart';
+import 'package:flutter_homework/ui/provider/list/list_page.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,12 +65,10 @@ class MyApp extends StatelessWidget {
             child: const LoginPageBloc(),
           )
         ),
-        "/list": (_) => Scaffold(
-          appBar: AppBar(
-            title: Text("List page"),
-          ),
-          body: Text("TODO"),
-        )
+        "/list": (_) => BlocProvider(
+          create: (_) => ListBloc(),
+          child: const ListPageBloc(),
+        ),
       },
     );
   }
