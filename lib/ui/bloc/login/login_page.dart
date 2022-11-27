@@ -76,6 +76,8 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
   Widget loginForm(BuildContext context, LoginState state) {
     final loginBloc = context.read<LoginBloc>();
     return Center(
+      child: Container(
+        constraints: const BoxConstraints(minWidth: 100, maxWidth: 400),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,6 +93,7 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
               },
               enabled: state is! LoginLoading,
             ),
+            const SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
                 labelText: "Password",
@@ -103,7 +106,9 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
               obscureText: true,
               enabled: state is! LoginLoading,
             ),
-            Checkbox(
+            const SizedBox(height: 10),
+            CheckboxListTile(
+              title: Text("Remember me"),
               value: rememberMe,
               onChanged: (checked) {
                 checked!;
@@ -113,10 +118,18 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
                   });
                 }
               },
+              controlAffinity: ListTileControlAffinity.leading,
             ),
-            ElevatedButton(onPressed: () => submit(loginBloc), child: const Text("Submit"))
+            const SizedBox(height: 30),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () => submit(loginBloc),
+                  child: const Text("Submit")
+              ),
+            ),
           ],
-        )
+        ),
+      ),
     );
   }
 
