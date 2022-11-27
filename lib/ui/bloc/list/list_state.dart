@@ -13,6 +13,11 @@ class ListLoading extends ListState {
   List<Object?> get props => [];
 }
 
+class ListLogout extends ListState {
+  @override
+  List<Object?> get props => [];
+}
+
 class ListLoaded extends ListState {
   final List<UserItem> users;
 

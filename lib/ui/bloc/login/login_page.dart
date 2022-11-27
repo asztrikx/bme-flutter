@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_homework/ui/bloc/tokenManager/TokenManager.dart';
 import 'package:flutter_homework/ui/bloc/login/login_bloc.dart';
 import 'package:validators/validators.dart';
 
@@ -18,7 +17,6 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
   String? _emailErrorText = null;
   String? _passwordErrorText = null;
   bool loading = false;
-  var tokenMngr = GetIt.I<TokenManager>();
 
   set emailErrorText(String? text) {
     setState(() {

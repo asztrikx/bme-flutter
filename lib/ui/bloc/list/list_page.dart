@@ -1,11 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_homework/ui/bloc/list/list_bloc.dart';
-import 'package:get_it/get_it.dart';
-
-import '../tokenManager/TokenManager.dart';
 
 class ListPageBloc extends StatefulWidget {
   const ListPageBloc({super.key});
@@ -15,9 +11,6 @@ class ListPageBloc extends StatefulWidget {
 }
 
 class _ListPageBlocState extends State<ListPageBloc> {
-  var dio = GetIt.I<Dio>();
-  var tokenMngr = GetIt.I<TokenManager>();
-
   @override
   void initState() {
     final loginBloc = context.read<ListBloc>();
@@ -27,6 +20,7 @@ class _ListPageBlocState extends State<ListPageBloc> {
 
   @override
   Widget build(BuildContext context) {
+    final loginBloc = context.read<ListBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -34,9 +28,7 @@ class _ListPageBlocState extends State<ListPageBloc> {
             IconButton(
               icon: const Icon(Icons.key),
               onPressed: () async {
-                dio.options.headers["Authorization"] = "";
-                Navigator.pushReplacementNamed(context, "/");
-                await tokenMngr.clearSaved();
+                loginBloc.add(ListLogoutEvent());
               },
             ),
             const Text("Users",)
@@ -54,6 +46,8 @@ class _ListPageBlocState extends State<ListPageBloc> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.message),
             ));
+          } else if (state is ListLogout) {
+            Navigator.pushReplacementNamed(context, "/");
           }
         },
         builder: (ctx, state) {

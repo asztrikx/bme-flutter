@@ -7,3 +7,8 @@ class ListLoadEvent extends ListEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ListLogoutEvent extends ListEvent {
+  @override
+  List<Object?> get props => [];
+}

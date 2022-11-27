@@ -31,5 +31,10 @@ class ListBloc extends Bloc<ListEvent, ListState> {
         emit(ListError(text));
       }
     });
+    on<ListLogoutEvent>((event, emit) async {
+      dio.options.headers["Authorization"] = "";
+      await tokenMngr.clearSaved();
+      emit(ListLogout());
+    });
   }
 }
