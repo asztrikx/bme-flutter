@@ -110,20 +110,13 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
             CheckboxListTile(
               title: Text("Remember me"),
               value: rememberMe,
-              onChanged: (checked) {
-                checked!;
-                if (state is! LoginLoading) {
-                  setState(() {
-                    rememberMe = checked;
-                  });
-                }
-              },
+              onChanged: state is LoginLoading ? null : (checked) => checkButtonChange(checked!, state),
               controlAffinity: ListTileControlAffinity.leading,
             ),
             const SizedBox(height: 30),
             Center(
-              child: ElevatedButton(
-                  onPressed: () => submit(loginBloc),
+              child: TextButton(
+                  onPressed: state is LoginLoading ? null : () => submit(loginBloc),
                   child: const Text("Submit")
               ),
             ),
@@ -131,6 +124,14 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
         ),
       ),
     );
+  }
+
+  void checkButtonChange(bool checked, LoginState state) {
+    if (state is! LoginLoading) {
+      setState(() {
+        rememberMe = checked;
+      });
+    }
   }
 
   void submit(LoginBloc loginBloc) {
