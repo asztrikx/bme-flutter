@@ -14,7 +14,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   var dio = GetIt.I<Dio>();
-  var tokenMngr = GetIt.I<TokeManager>();
+  var tokenMngr = TokenManager();
 
   LoginBloc() : super(LoginForm()) {
     on<LoginSubmitEvent>((event, emit) async {

@@ -16,7 +16,7 @@ class ListPageBloc extends StatefulWidget {
 
 class _ListPageBlocState extends State<ListPageBloc> {
   var dio = GetIt.I<Dio>();
-  var tokenMngr = GetIt.I<TokeManager>();
+  var tokenMngr = TokenManager();
 
   @override
   void initState() {

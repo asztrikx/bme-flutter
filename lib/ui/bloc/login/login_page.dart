@@ -21,7 +21,7 @@ class _LoginPageBlocState extends State<LoginPageBloc> {
   String? _emailErrorText = null;
   String? _passwordErrorText = null;
   bool loading = false;
-  var tokenMngr = GetIt.I.get<TokeManager>();
+  var tokenMngr = TokenManager();
 
   set emailErrorText(String? text) {
     setState(() {

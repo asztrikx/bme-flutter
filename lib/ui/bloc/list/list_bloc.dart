@@ -11,7 +11,7 @@ part 'list_state.dart';
 
 class ListBloc extends Bloc<ListEvent, ListState> {
   var dio = GetIt.I<Dio>();
-  var tokenMngr = GetIt.I<TokeManager>();
+  var tokenMngr = TokenManager();
 
   ListBloc() : super(ListInitial()) {
     on<ListLoadEvent>((event, emit) async {
