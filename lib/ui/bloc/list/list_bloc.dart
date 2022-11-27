@@ -21,7 +21,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
       try {
         var result = await dio.get("/users", options: Options(
           headers: {
-            "Authorization": "Bearer ${tokenMngr.token}",
+            "Authorization": "Bearer ${tokenMngr.token ?? ""}",
           },
         ));
         var list = <UserItem>[];
@@ -29,7 +29,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
           list.add(UserItem.fromJson(result.data[i]));
         }
         emit(ListLoaded(list));
-      } on DioError catch(e) {
+      } on DioError {
         emit(ListError("Hiba történt!"));
       }
     });
