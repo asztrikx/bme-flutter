@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_homework/ui/bloc/tokenManager/TokenManager.dart';
 import 'package:flutter_homework/ui/bloc/login/login_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:validators/validators.dart';
 
 class LoginPageBloc extends StatefulWidget {

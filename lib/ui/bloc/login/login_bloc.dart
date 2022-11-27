@@ -41,13 +41,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     on<LoginAutoLoginEvent>((event, emit) async {
       if (tokenMngr.hasSavedToken()) {
-        setAuthHeader();
+        await setAuthHeader();
         emit(LoginSuccess());
       }
     });
   }
 
-  setAuthHeader() {
-    dio.options.headers["Authorization"] = "Bearer ${tokenMngr.token ?? ""}";
+  setAuthHeader() async {
+    dio.options.headers["Authorization"] = "Bearer ${await tokenMngr.token ?? ""}";
   }
 }
